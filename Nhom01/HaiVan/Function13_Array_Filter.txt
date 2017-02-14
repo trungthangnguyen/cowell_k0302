@@ -1,0 +1,72 @@
+array_filter
+
+(PHP 4 >= 4.0.6, PHP 5, PHP 7)
+array_filter — Chọn lọc các phần tử bằng cách sử dụng callback function 
+Cách dùng 
+array array_filter ( array $array [, callable $callback [, int $flag = 0 ]] )
+từng phần tử trong mảng bằng điều kiện của  callback function . Nếu callback function trả về giá trị true, giá trị của phần tử hiện tại trong mảng sẽ được trả về trong mảng kết quả 
+Parameters ¶
+Array ( bắt buộc)
+Mảng được dùng để duyệt 
+callback function( tùy chọn)
+Callback function để lọc phần tử
+Nếu ko có callback function dc xác định cụ thể, tất cả những phần tử mang giá trị false trong mảng sẽ đươc loại bỏ 
+flag (tùy chọn) 
+Flag sẽ xác định argument của callback function 
+ARRAY_FILTER_USE_KEY - chỉ sử dụng key như là argument thay thế cho giá trị của phần tử 
+ARRAY_FILTER_USE_BOTH -sử dụng key và value    như là argument thay thế cho giá trị của phần tử
+Trả về
+Trả về mảng đã được lọc 
+
+Examples 1
+<?php
+function test_odd($var)
+{
+return($var & 1);
+}
+
+$a1=array("a","b",2,3,4);
+print_r(array_filter($a1,"test_odd"));
+?>
+//Output: Array ( [3] => 3 )
+Example 2
+<?php
+$entry = array(
+             0 => 'foo',
+             1 => false,
+             2 => -1,
+             3 => null,
+             4 => ''
+          );
+
+print_r(array_filter($entry));
+?>
+//Output: Array
+(
+    [0] => foo
+    [2] => -1
+)
+Example 3:
+<?php
+
+$arr = ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4];
+
+var_dump(array_filter($arr, function($k) {
+    return $k == 'b';
+}, ARRAY_FILTER_USE_KEY));
+
+var_dump(array_filter($arr, function($v, $k) {
+    return $k == 'b' || $v == 4;
+}, ARRAY_FILTER_USE_BOTH));
+?>
+//Output:
+array(1) {
+  ["b"]=>
+  int(2)
+}
+array(2) {
+  ["b"]=>
+  int(2)
+  ["d"]=>
+  int(4)
+}

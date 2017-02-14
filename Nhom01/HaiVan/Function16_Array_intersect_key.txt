@@ -1,0 +1,38 @@
+array_intersect_key
+
+(PHP 5 >= 5.1.0, PHP 7)
+array_intersect_key —Tìm ra phần tử chung của các array bằng cách sử dụng key 
+Mô tả  ¶
+
+array array_intersect_key ( array $array1 , array $array2 [, array $... ] )
+array_intersect_key() trả về 1 array chứa các bản ghi cái mà có key xuất hiện trong tất các argument array.
+Parameters ¶
+
+array1
+Array chính (master)
+array2
+Array được đùng để so sánh 
+...
+Các array khác ....
+Giá trị trả về ¶
+
+Trả về 1 array mà ở đó các key ở array 1 xuất hiện trong tất cả các argument array
+Examples ¶
+
+Example #1 array_intersect_key() example
+
+<?php
+$array1 = array('blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4);
+$array2 = array('green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan'   => 8);
+
+var_dump(array_intersect_key($array1, $array2));
+?>
+The above example will output:
+
+array(2) {
+  ["blue"]=>
+  int(1)
+  ["green"]=>
+  int(3)
+}
+Luuw ý : Giá trị sẽ đc lấy theo array 1. ví dụ value of  key 'blue'  sẽ là 1 khi trong trả về
