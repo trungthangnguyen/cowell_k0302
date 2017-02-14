@@ -1,0 +1,67 @@
+﻿
+#2: Function: array_chunk
+Tác dụng: 		Chia mảng thành các khối có size nhất định, khối cuối cùng có thể có ít phần tử hơn.
+Mô tả:			array array_chunk ( array $array , int $size [, bool $preserve_keys = false ] )
+các thông số:	array: Chỉ định mảng sử dụng
+				size:	kích thước mỗi khối
+				preserve_keys: 	True: 				Các khối có chỉ số bình thường
+								False (default): 	Các khối có chỉ số tiếp nối các khối trước.
+Example #1:
+	<?php
+	$input_array = array('a', 'b', 'c', 'd', 'e');
+	print_r(array_chunk($input_array, 2));
+	print_r(array_chunk($input_array, 2, true));
+	?>
+
+Returns:
+	Array
+	(
+	    [0] => Array
+	        (
+	            [0] => a
+	            [1] => b
+	        )
+
+	    [1] => Array
+	        (
+	            [0] => c
+	            [1] => d
+	        )
+
+	    [2] => Array
+	        (
+	            [0] => e
+	        )
+
+	)
+
+	Array
+	(
+	    [0] => Array
+	        (
+	            [0] => a
+	            [1] => b
+	        )
+
+	    [1] => Array
+	        (
+	            [2] => c
+	            [3] => d
+	        )
+
+	    [2] => Array
+	        (
+	            [4] => e
+	        )
+
+	)
+
+Example #2:
+<?php
+$age=array("Peter"=>"35","Ben"=>"37","Joe"=>"43","Harry"=>"50");
+print_r(array_chunk($age,2,true));
+?>
+Returns:
+	Array ( 
+	[0] => Array ( [Peter] => 35 [Ben] => 37 )
+	[1] => Array ( [Joe] => 43 [Harry] => 50 ) )

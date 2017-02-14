@@ -1,0 +1,74 @@
+﻿#4: Function array_combine
+Tác dụng:	Tạo một mảng mới bằng cách sử dụng hai mảng khác, một mảng làm keys, một mảng làm values.
+Mô tả:		array array_combine ( array $keys , array $values )
+Các thông số:
+			keys:	Mảng dùng làm keys được sử dụng. Các giá trị Illegal của keys sẽ được chuyển sang chuỗi.
+			values:	Mảng dùng làm values được sử dụng.
+Return Values: False nếu số phần tử mỗi mảng không bằng nhau. 
+Example #1: Tạo mảng $c từ hai mảng $a và $b
+	<?php
+	$a = array('green', 'red', 'yellow');
+	$b = array('avocado', 'apple', 'banana');
+	$c = array_combine($a, $b);
+
+	print_r($c);
+	?>
+
+Returns:
+	Array
+	(
+	    [green]  => avocado
+	    [red]    => apple
+	    [yellow] => banana
+	)
+
+Example #2: Nếu hai keys có giá trị giống nhau, giá trị thứ 2 sẽ được ưu tiên.
+	<?php
+	print_r(array_combine(Array('a','a','b'), Array(1,2,3)));
+	?>
+
+Returns:
+	Array
+	(
+	    [a] => 2
+	    [b] => 3
+	)
+
+Example #3: Nếu cần giữ lại tất cả các giá trị, có thể sử dụng hàm như sau
+<?php
+function array_combine_($keys, $values)
+{
+    $result = array();
+    foreach ($keys as $i => $k) {
+        $result[$k][] = $values[$i];
+    }
+    array_walk($result, create_function('&$v', '$v = (count($v) == 1)? array_pop($v): $v;'));
+    return    $result;
+}
+
+print_r(array_combine_(Array('a','a','b'), Array(1,2,3)));
+?>
+
+Returns:
+	Array
+	(
+	    [a] => Array
+	        (
+	            [0] => 1
+	            [1] => 2
+	        )
+
+	    [b] => 3
+	)
+
+Returns:
+	Array
+	(
+	    [a] => Array
+	        (
+	            [0] => 1
+	            [1] => 2
+	        )
+
+	    [b] => 3
+	)

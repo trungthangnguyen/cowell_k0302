@@ -1,0 +1,29 @@
+﻿#1: Function: array_change_key_case
+Tác dụng: 		Thay đổi mọi giá trị key trong một mảng thành chữ thường hoặc chữ hoa.
+Mô tả: 			array array_change_key_case ( array $array [, int $case = CASE_LOWER ] )
+Các thông số: 	array: Chỉ định mảng sử dụng
+				case: CASE_UPPER hoặc CASE_LOWER (default)
+Examples #1:
+	<?php
+	$input_array = array("FirSt" => 1, "SecOnd" => 4);
+	print_r(array_change_key_case($input_array, CASE_UPPER));
+	?>
+Returns: trả key về chữ hoa
+	Array
+	(
+	    [FIRST] => 1
+	    [SECOND] => 4
+	)
+
+Examples #2: trả key về chữ thường
+	<?php
+	$age=array("Peter"=>"35","Ben"=>"37","Joe"=>"43");
+	print_r(array_change_key_case($age,CASE_LOWER));
+	?>
+
+Returns:
+	Array ( 
+	[peter] => 35 
+	[ben] => 37
+	[joe] => 43 
+	)

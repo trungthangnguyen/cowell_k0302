@@ -1,0 +1,78 @@
+﻿5. array_count_values: đếm số lần xuất hiện của các gía trị trong mảng
+cú pháp: array array_count_values ( array $array )
+trả về một mảng mà có key là gía trị của mảng $array và value là số lần xuất hiện trong mảng $array.
+ví dụ:
+<?php
+    $array = array(1, 5, 7, "php", "learn", "learn", "php", 1, 1, 1);
+    print_r(array_count_values($array));
+?>
+kết qủa:
+Array
+(
+    [1] => 4
+    [5] => 1
+    [7] => 1
+    [php] => 2
+    [learn] => 2
+)
+
+6. array_diff_assoc
+cú pháp: array array_diff_assoc ( array $array1 , array $array2 [, array $... ] )
+trả lại một mảng có các gía trị xuất hiện trong mảng array1 nhưng không xuất hiện ở mảng array2 theo chỉ số.
+ví dụ:
+<?php
+    $array1 = array(1, 5, 7, "php", "learn");
+    $array2 = array(1, 5, "php", "learn");
+    $result = array_diff_assoc($array1, $array2);
+    print_r($result);
+?>
+Kết qủa:
+Array
+(
+    [2] => 7
+    [3] => php
+    [4] => learn
+)
+
+7. array_diff_key
+cú pháp: array array_diff_key ( array $array1 , array $array2 [, array $... ] )
+trả về một mảng gồm các phần tử ở mảng array1 sao cho key không xuất hiện ở các mảng khác.
+ví dụ:
+<?php
+    $array1 = array("learn" => 3, "php" => 1, "fun" => 2, "easy" => 5);
+    $array2 = array("fun" => 5, "php" => 4, "learn" => 2);
+    $result = array_diff_key($array1, $array2);
+    print_r($result);
+?>
+kết qủa:
+Array
+(
+    [easy] => 5
+)
+
+8. array_diff_uassoc
+cú pháp: array array_diff_uassoc ( array $array1 , array $array2 [, array $... ], callable $key_compare_func )
+trả về một mảng các phần tử ở mảng array1 không xuất hiện ở mảng array2...
+key_compare_func($a, $b): là một hàm trả về một số integer gía trị nhỏ hơn, bằng, lớn hơn 0 nếu như $a nhỏ hơn, bằng hoặc lớn hơn $b.
+Những phiên bản trước PHP 7.0.0 thì số integer có thể trong khoảng -2147483648 to 2147483647. 
+Ví dụ:
+function key_compare_func($a, $b)
+{
+    if ($a === $b) {
+        return 0;
+    }
+    return ($a > $b)? 1:-1;
+}
+
+$array1 = array("a" => "green", "b" => "brown", "c" => "blue", "red");
+$array2 = array("a" => "green", "yellow", "red");
+$result = array_diff_uassoc($array1, $array2, "key_compare_func");
+print_r($result);
+?>
+kết qủa:
+Array
+(
+    [b] => brown
+    [c] => blue
+    [0] => red
+)

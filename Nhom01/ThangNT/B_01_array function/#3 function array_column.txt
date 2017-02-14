@@ -1,0 +1,63 @@
+﻿#3: function array_column
+Tác dụng: 	Trả về giá trị một cột trong mảng đầu vào.
+Mô tả:		array array_column ( array $input , mixed $column_key [, mixed $index_key = null ] )
+Các thông số:
+			input: 		Một mảng đa chiều hoặc mảng các đối tượng mà từ đó lấy về một cột.
+			column_key: Tên cột bằng số hoặc chuỗi của cột có giá trị trả về. Thông số này cũng có thể
+						để NULL để trả lại mảng đầy đủ (hữu ích cùng với index_key để reindex mảng)
+			index_key:	Không bắt buộc. Cột được sử dụng như index/keys cho  mảng được trả về.
+
+Example #1: Lấy về cột 'last_name'. 
+
+	<?php
+	// Array representing a possible record set returned from a database
+	$records = array(
+	    array(
+	        'id' => 2135,
+	        'first_name' => 'John',
+	        'last_name' => 'Doe',
+	    ),
+	    array(
+	        'id' => 3245,
+	        'first_name' => 'Sally',
+	        'last_name' => 'Smith',
+	    ),
+	    array(
+	        'id' => 5342,
+	        'first_name' => 'Jane',
+	        'last_name' => 'Jones',
+	    ),
+	    array(
+	        'id' => 5623,
+	        'first_name' => 'Peter',
+	        'last_name' => 'Doe',
+	    )
+	);
+	 
+	$first_names = array_column($records, 'first_name');
+	print_r($first_names);
+	?>
+
+Returns:
+	Array
+	(
+	    [0] => John
+	    [1] => Sally
+	    [2] => Jane
+	    [3] => Peter
+	)
+
+Example #2: sử dụng mảng $records từ Example #1, lấy cột 'last_name' với chỉ mục từ cột 'id'
+	<?php
+	$last_names = array_column($records, 'last_name', 'id');
+	print_r($last_names);
+	?>
+
+Returns:
+	Array
+	(
+	    [2135] => Doe
+	    [3245] => Smith
+	    [5342] => Jones
+	    [5623] => Doe
+	)
