@@ -1,0 +1,141 @@
+﻿9. array_diff_ukey
+sử dụng phiên bản php >= 5.1.0
+để tính toán sự khác nhau giữa các mảng bằng cách sử dụng hàm callback trên các khóa để so sánh
+cấu trúc
+array array_diff_ukey(array $array1, array $array2 [,array $...], callable $key_compare_func)
+so sánh các key của $array1 khác với các key của $array2 và trả về sự khác nhau. Hàm này khá giống với array_diff() chỉ khác ở chỗ ở chỗ ở đây so sánh giữa các key thay vì các values
+không giống với hàm array_diff_key() người dùng sẽ cung cấp hàm đệ quy để sử dụng so sánh các chỉ số chứ không phải ở trong hàm
+Tham số:
+array1: mảng gốc để so sánh
+array2: mảng để so sánh sự khác nhau
+...
+các mảng để so sách khác
+key_compare_func
+hàm để so sánh phải trả về một số nguyên nhỏ hơn, bằng hoặc lớn hơn 0 nếu tham số đầu tiên tương ứng nhỏ hơn bằng hoặc lớn hơn tham số thứ 2
+Lưu ý: trước php7 số integer có giá trị trong khoảng -2147483648 đến 2147483648 
+Trả về:
+Trả về một mảng chứa tất cả các điểm khác nhau từ mảng 1 so với các mảng khác
+Ví dụ:
+<?php
+ 	function key_compare_func($key1,$key2){
+		if($key1 == $key2){
+			return 0;
+		}else if($key1 > $key2){
+			return 1;
+		}else {
+			return -1;
+		}
+	}
+$arr1 = array("red" => 1, "blue" => 2, "green" =>3, "purple"=>4);
+$arr2 = array("blue" => 5, "green" => 6, "yellow" =>7, "cyan" => 8);
+var_dump(array_diff_ukey($arr1, $arr2, 'key_compare_func'));
+?>
+output:
+array(2){
+["red"]=>int(1);
+["purple"]=>int(4);
+}
+lưu ý:
+hàm này chỉ kiểm tra 1 chiều của mảng a n chiều. Do đó có thể kiểm tra chiều sâu hơn bằng cách sử dụng array_diff_ukey($arr1[0],$arr2[0],'callback_func');
+
+10. array_diff
+dùng cho các phiên bản php>4
+Tính toán sự khác nhau giữa các mảng
+Cú pháp:
+array array_diff(array $arr1, array $arr2 [,array $...])
+so sánh $arr1 khác với các mảng khác và trả về các giá trị của $arr1 mà ko có trong các mảng khác
+Các tham số:
+array1:
+Mảng để so sánh với
+array2:
+mảng để so sách sự khác nhau
+...
+các mảng khác
+Trả về:
+trả về một mảng mà chứa các giá trị mảng 1 có mà ko có trong các mảng khác
+Ví dụ:
+<?php
+	$arr1 = array("a"=>"red", "green", "blue", "blue");
+	$arr2 = array("b"=>"red", "yellow", "green");
+	$result = array_diff($arr1, $arr2);
+	print_r($result);
+?>
+output:
+Array
+{
+	[1]=> blue,
+	[2]=> blue
+}
+Lưu ý:
+2 phần tử được gọi là bằng nhau nếu và chỉ nếu (string)$elem1===(string)$elem2. hay 2 string giống nhau về mọi thứ
+hàm chỉ kiểm tra được 1 chiều trong mảng a n chiều. Bạn có thể kiểm tra sâu hơn bằng cách sử dụng array_diff($array1[0],$array2[0]);
+
+11.array_fill_keys
+dùng cho các phiên bản php > 5.2
+array_fill_keys đổ đầy mảng với các giá trị và key xác định
+mô tả:
+array array_fill_keys(array $key, mixed $value)
+đổ đầy mảng với các giá trị của tham số $value sử dụng các giá trị của mảng keys như các keys.
+Các tham số:
+keys
+mảng chứa các giá trị sẽ được sử dụng như các keys, các giá trị không hợp lệ sẽ được chuyển sang dạng string
+value
+được sử dụng để đổ đầy mảng
+Return
+trả về mảng đã được đổ đầy
+Ví dụ:
+<?php
+$key = ["foo",5,10,"bar"];
+$value = "banana";
+$a = array_fill_keys($key,$value);
+print_r($a);
+?>
+
+output:
+Array
+(
+[foo]=>"banana"
+[5]=>"banana"
+[10]=>"banana"
+[bar]=>"banana"
+)
+12. array_fill
+Đổ đầy mảng với một giá trị
+phiên bản >=4.2
+cú pháp
+array array_fill(int $start_index, int $num, mixed $value)
+đổ dữ liệu đầy mảng với giá trị $value bắt đầu tại key $start_index
+các tham số
+$start_index: chỉ số đầu tiên của mảng trả về
+nếu $start_index là số âm thì chỉ số đầu tiên của mảng trả về bắt đầu từ chỉ số đó sau đó đến 0
+$num: số lượng phần tử được chèn
+phải lớn hơn hoặc bằng 0
+$value: giá trị được sử dụng để chèn vào
+return:
+trả về một mảng đã được chèn
+Errors/exception
+ném ra ngoại lệ E_WARNING nếu num nhó hơn 0
+thay đổi
+từ bản 5.6 num có thể bằng 0 trước đó thì num phải lớn hơn 0
+ví dụ:
+<?php
+$a = array_fill(5,6,'banana');
+$b = array_fill(-2,4,'pear');
+print_r($a);
+print_r($b);
+?>
+kết quả:
+Array(
+[5]=> banana
+[6]=> banana
+[7]=> banana
+[8]=> banana
+[9]=> banana
+[10]=> banana
+)
+Array(
+[-2]=> pear
+[0]=> pear
+[1]=> pear
+[2]=> pear
+)
